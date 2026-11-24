@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#2e6fd1">
+<meta name="description" content="Интерактивный виртуальный опыт по физике: вода и масло в U-образной трубке, сообщающиеся сосуды, 7 класс. Работает на телефоне.">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="U-трубка">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ctext y='52' font-size='52'%3E%F0%9F%A7%AA%3C/text%3E%3C/svg%3E">
+<title>Опыт «Вода и масло в U-образной трубке» — сообщающиеся сосуды</title>
+<style>
+  body{font-family:'Segoe UI',system-ui,-apple-system,Roboto,Arial,sans-serif;background:linear-gradient(180deg,#f4f7fb,#e9eff6);color:#22303f;margin:0}
+  .wrap{max-width:1200px;margin:0 auto;padding:16px 18px 30px}
+  h1{font-size:24px;margin:0 0 4px}
+  .sub{color:#5b6b7c;margin:0 0 14px;font-size:14.5px}
+  .main{display:flex;gap:16px;align-items:flex-start;flex-wrap:wrap}
+  .card{background:#fff;border-radius:16px;box-shadow:0 4px 18px rgba(30,50,80,.08)}
+  .scene{flex:2 1 620px;padding:8px 8px 2px}
+  .panel{flex:1 1 380px;max-width:470px;min-width:320px;padding:18px 22px 22px}
+  svg{width:100%;height:auto;display:block}
+  svg text{font-family:inherit}
+  .it{font-style:italic;font-family:Georgia,'Times New Roman',serif}
+  .badge{display:inline-block;background:#e3edfb;color:#2456a8;border-radius:999px;padding:4px 14px;font-weight:700;font-size:13.5px;letter-spacing:.3px;margin-bottom:10px}
+  .wait{color:#5b6b7c;padding:16px 0;font-size:15.5px}
+  .obs,.why,.next{border-radius:10px;padding:10px 13px;margin:10px 0;font-size:15px;line-height:1.5}
+  .obs{background:#eef7ee;border-left:4px solid #3f9d5a}
+  .why{background:#eef3fc;border-left:4px solid #3a7bd5}
+  .next{background:#fdf6e5;border-left:4px solid #d9a520}
+  .formula{background:#f2f6fc;border:1px solid #d5e2f2;border-radius:10px;padding:10px 14px;margin:12px 0;font-size:17px}
+  .law{background:#f2f6fc;border:1px solid #d5e2f2;border-radius:10px;padding:14px;margin:12px 0;font-size:20px;text-align:center;display:flex;justify-content:center;align-items:center;flex-wrap:wrap}
+  .f{font-family:'Cambria Math',Georgia,'Times New Roman',serif;font-style:italic}
+  .frac{display:inline-flex;flex-direction:column;text-align:center;line-height:1.15;margin:0 2px;font-family:'Cambria Math',Georgia,serif}
+  .frac>span{padding:0 6px}
+  .frac>span:first-child{border-bottom:1.6px solid #2c3a4a}
+  .btn{display:inline-block;background:#2e6fd1;color:#fff;border:none;border-radius:12px;padding:12px 22px;font-size:16.5px;font-weight:600;cursor:pointer;margin-top:14px;box-shadow:0 3px 8px rgba(46,111,209,.3)}
+  .btn:hover{background:#255bb0}
+  .btn.ghost{background:#fff;color:#2e6fd1;border:1.6px solid #2e6fd1;box-shadow:none}
+  .btn.ghost:hover{background:#eef3fc}
+  .btn.alt{background:#0e9f6e;box-shadow:0 3px 8px rgba(14,159,110,.3)}
+  .btn.alt:hover{background:#0b7f58}
+  .btnrow{display:flex;gap:10px;flex-wrap:wrap}
+  .hint{color:#7a8794;font-size:13.5px;margin-top:10px}
+  .dot{display:inline-block;width:11px;height:11px;border-radius:50%;margin-right:5px;vertical-align:-1px}
+  ul.equip{padding-left:4px;list-style:none;margin:8px 0}
+  ul.equip li{margin:7px 0;font-size:15px;line-height:1.45}
+  .done{background:#e8f8ef;border:1.5px solid #9fdec0;color:#14683c;padding:10px 14px;border-radius:10px;font-size:17px;margin-bottom:10px}
+  ol.ques{padding-left:20px}
+  ol.ques li{margin:11px 0;font-size:15px;line-height:1.45}
+  details{margin:6px 0 2px}
+  summary{color:#2e6fd1;cursor:pointer;font-size:13.5px}
+  details p{margin:6px 0;font-size:14.5px;background:#f6f8fb;border-radius:8px;padding:8px 10px;line-height:1.45}
+  .readout{background:#f2f6fc;border:1px solid #d5e2f2;border-radius:10px;padding:10px 12px;margin:10px 0;font-size:15.5px;line-height:1.55}
+  .readout b{color:#2456a8}
+  label{display:block;margin-top:12px;font-weight:600;font-size:14.5px}
+  input[type=range]{width:100%;accent-color:#2e6fd1;margin-top:4px}
+  .note{font-size:14px;color:#8a5b00;background:#fff7e0;border-radius:8px;padding:8px 10px;margin:8px 0}
+  .foot{color:#8b98a5;font-size:12.5px;margin-top:10px}
+  sub{font-size:72%}
+  /* --- Мобильная адаптация и методические блоки --- */
+  .panelTop{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
+  .mini-btn{min-height:40px;padding:8px 12px;border:1.6px solid #2e6fd1;background:#fff;color:#2e6fd1;border-radius:10px;font-family:inherit;font-size:14px;font-weight:600;line-height:1.2;cursor:pointer}
+  .mini-btn[aria-pressed="true"]{background:#2e6fd1;color:#fff}
+  .predict{background:#fff8e8;border:1px solid #f0d59a;border-radius:10px;padding:10px 13px;margin:12px 0;font-size:14.5px;line-height:1.5}
+  .goals{margin:8px 0;padding-left:18px;font-size:14.5px;line-height:1.5}
+  .teacher summary{font-weight:600}
+  .btn{min-height:44px}
+  details summary{min-height:32px;padding:4px 0}
+  input[type=range]{height:28px}
+  @media (max-width:640px){
+    .wrap{padding:12px 12px 24px}
+    h1{font-size:21px}
+    .sub{font-size:13.5px}
+    .card{border-radius:12px}
+    .scene,.panel{flex:1 1 100%;min-width:0;max-width:none;width:100%}
+    .panel{padding:14px 15px 18px}
+    .btn{width:100%;margin-top:12px}
+    .btnrow .btn{width:auto;flex:1 1 140px}
+    ol.ques{padding-left:18px}
+    .foot{font-size:12px}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>Опыт «Вода и масло в U-образной трубке»</h1>
+    <p class="sub">Сообщающиеся сосуды · давление столба жидкости · 7 класс</p>
+  </header>
+  <div class="main">
+    <section class="scene card">
+      <svg id="scene" viewBox="-32 -4 68 66" role="img" aria-label="U-образная трубка с водой и маслом на картонке, рядом линейка">
+        <defs>
+          <marker id="mBlue" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="1.5" markerHeight="1.5" orient="auto-start-reverse" markerUnits="userSpaceOnUse"><path d="M0,0L10,5L0,10Z" fill="#1c5a94"/></marker>
+          <marker id="mAmber" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="1.5" markerHeight="1.5" orient="auto-start-reverse" markerUnits="userSpaceOnUse"><path d="M0,0L10,5L0,10Z" fill="#a3760d"/></marker>
+          <marker id="mGray" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="1.4" markerHeight="1.4" orient="auto-start-reverse" markerUnits="userSpaceOnUse"><path d="M0,0L10,5L0,10Z" fill="#4a5560"/></marker>
+        </defs>
+
+        <!-- стол -->
+        <rect x="-32" y="58.6" width="68" height="3.4" fill="#a5825c"/>
+        <rect x="-32" y="58.6" width="68" height="0.5" fill="#8c6b47"/>
+        <!-- картонка -->
+        <rect x="-26" y="4" width="52" height="54.6" rx="1.4" fill="#e8c79b" stroke="#cfa876" stroke-width="0.35"/>
+        <text x="-12" y="57.4" text-anchor="middle" font-size="1.5" fill="#857a63">левое колено</text>
+        <text x="12" y="57.4" text-anchor="middle" font-size="1.5" fill="#857a63">правое колено</text>
+
+        <!-- линейка (появляется на шаге 4) -->
+        <g id="ruler" opacity="0"></g>
+
+        <!-- трубка (стенки) -->
+        <path id="glassDark" fill="none" stroke="#a9bdcd" stroke-width="4.4" stroke-linejoin="round"/>
+        <path id="glassLight" fill="none" stroke="#eef4fa" stroke-width="3.7" stroke-linejoin="round"/>
+
+        <!-- жидкости -->
+        <path id="waterPath" fill="none" stroke="#2e86d9" stroke-width="3.2" stroke-linejoin="round" stroke-linecap="butt"/>
+        <path id="oilPath" fill="none" stroke="#f4c430" stroke-width="3.2" stroke-linecap="butt"/>
+        <line id="ifaceLine" stroke="rgba(110,66,0,0.4)" stroke-width="0.28" visibility="hidden"/>
+        <line id="surfL" stroke="rgba(255,255,255,0.55)" stroke-width="0.28" visibility="hidden"/>
+        <line id="surfR" stroke="rgba(255,255,255,0.55)" stroke-width="0.28" visibility="hidden"/>
+        <line id="surfOil" stroke="rgba(255,255,255,0.5)" stroke-width="0.28" visibility="hidden"/>
+
+        <!-- линия «уровни равны» (шаг 1) -->
+        <g id="equalG" opacity="0">
+          <line x1="-14.3" x2="14.3" y1="26" y2="26" stroke="#1f7a46" stroke-width="0.24" stroke-dasharray="0.9 0.55"/>
+          <text x="0" y="24.9" text-anchor="middle" font-size="1.6" fill="#1f7a46">уровни равны!</text>
+        </g>
+
+        <!-- измерительные линии и скобки (шаг 4) -->
+        <g id="guides" opacity="0">
+          <line id="dIface" stroke="#7a828c" stroke-width="0.22" stroke-dasharray="0.9 0.55"/>
+          <line id="dWater" stroke="#2e86d9" stroke-width="0.22" stroke-dasharray="0.9 0.55" opacity="0.75"/>
+          <line id="dOil" stroke="#c9931a" stroke-width="0.22" stroke-dasharray="0.9 0.55"/>
+          <line id="brM" stroke="#a3760d" stroke-width="0.22" marker-start="url(#mAmber)" marker-end="url(#mAmber)"/>
+          <text id="tM" x="17.1" font-size="1.8" fill="#7a5a10"><tspan class="it">h</tspan><tspan dy="0.5" font-size="65%">м</tspan><tspan dy="-0.5"> = </tspan><tspan id="tMv">0,0</tspan><tspan> см</tspan></text>
+          <line id="brV" stroke="#1c5a94" stroke-width="0.22" marker-start="url(#mBlue)" marker-end="url(#mBlue)"/>
+          <text id="tV" x="-16.6" text-anchor="end" font-size="1.8" fill="#1c5a94"><tspan class="it">h</tspan><tspan dy="0.5" font-size="65%">в</tspan><tspan dy="-0.5"> = </tspan><tspan id="tVv">0,0</tspan><tspan> см</tspan></text>
+        </g>
+
+        <!-- стрелки давлений (шаг 3) -->
+        <g id="arrows" opacity="0">
+          <line id="aL" stroke="#1c5a94" stroke-width="0.5" marker-end="url(#mBlue)"/>
+          <text id="aLt" text-anchor="middle" font-size="1.55" fill="#1c5a94"><tspan class="it">p</tspan><tspan dy="0.5" font-size="65%">в</tspan><tspan dy="-0.5"> = </tspan><tspan class="it">ρ</tspan><tspan dy="0.5" font-size="65%">в</tspan><tspan dy="-0.5">·</tspan><tspan class="it">g</tspan><tspan>·</tspan><tspan class="it">h</tspan><tspan dy="0.5" font-size="65%">в</tspan></text>
+          <line id="aR" stroke="#a3760d" stroke-width="0.5" marker-end="url(#mAmber)"/>
+          <text id="aRt" text-anchor="middle" font-size="1.55" fill="#8a6410"><tspan class="it">p</tspan><tspan dy="0.5" font-size="65%">м</tspan><tspan dy="-0.5"> = </tspan><tspan class="it">ρ</tspan><tspan dy="0.5" font-size="65%">м</tspan><tspan dy="-0.5">·</tspan><tspan class="it">g</tspan><tspan>·</tspan><tspan class="it">h</tspan><tspan dy="0.5" font-size="65%">м</tspan></text>
+        </g>
+
+        <!-- скотч -->
+        <g opacity="0.85">
+          <rect x="-14.7" y="7.6" width="5.4" height="3" rx="0.3" fill="rgba(255,255,255,0.55)" stroke="rgba(170,170,150,0.7)" stroke-width="0.12" transform="rotate(-4 -12 9.1)"/>
+          <rect x="9.3" y="7.6" width="5.4" height="3" rx="0.3" fill="rgba(255,255,255,0.55)" stroke="rgba(170,170,150,0.7)" stroke-width="0.12" transform="rotate(3 12 9.1)"/>
+        </g>
+
+        <!-- стакан и струя -->
+        <g id="beaker" opacity="0" style="transition:opacity .45s">
+          <rect id="beakerLiq" x="0.35" y="2.8" width="3.9" height="3.3" rx="0.4"/>
+          <path d="M0,0 L0,5.6 Q0,6.4 0.8,6.4 L3.8,6.4 Q4.6,6.4 4.6,5.6 L4.6,0" fill="rgba(235,244,250,0.72)" stroke="#93a9bd" stroke-width="0.28"/>
+          <ellipse cx="2.3" cy="0" rx="2.3" ry="0.4" fill="rgba(255,255,255,0.4)" stroke="#93a9bd" stroke-width="0.18"/>
+        </g>
+        <rect id="stream" width="0.44" rx="0.22" opacity="0"/>
+
+        <text x="0" y="-1.6" text-anchor="middle" font-size="1.7" fill="#93a0ac">U-образная трубка (сообщающиеся сосуды)</text>
+      </svg>
+    </section>
+
+    <aside class="panel card">
+      <div class="panelTop">
+        <div id="stepBadge" class="badge">Введение</div>
+        <button id="fastBtn" class="mini-btn" type="button" aria-pressed="false" title="Сразу показывать конец анимации">⚡ Быстро</button>
+      </div>
+      <div id="panelBody"></div>
+      <p class="foot">Модель: высоты в сантиметрах, ρ<sub>в</sub> = 1000 кг/м³, ρ<sub>м</sub> = 920 кг/м³. Масло и вода не смешиваются. Колена одинакового сечения, уровни выше изгиба шланга; капиллярные эффекты не учитываются.</p>
+    </aside>
+  </div>
+</div>
+
+<script>
+'use strict';
+const NS = 'http://www.w3.org/2000/svg';
+const $ = id => document.getElementById(id);
+const ARM = 12, R = 12, CY = 44, TOP = 50;      // геометрия трубки, см
+const ys = y => 56 - y;                          // физ. y (вверх) -> svg y (вниз)
+const f2 = v => Math.round(v * 100) / 100;
+const fmt1 = v => v.toFixed(1).replace('.', ',');
+const fmt0 = v => Math.round(v).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
+const fmt2 = v => v.toFixed(2).replace('.', ',');
+
+// дуга изгиба (полилиния)
+const arcPts = (() => {
+  const s = [], N = 26;
+  for (let i = 0; i <= N; i++) {
+    const a = Math.PI * (1 - i / N);
+    s.push([ARM * Math.cos(a), CY + R * Math.sin(a)]);
+  }
+  return s;
+})();
+
+function tubeD(topL, topR) {
+  let d = `M ${-ARM} ${f2(ys(topL))} L ${-ARM} ${CY} `;
+  for (const [x, y] of arcPts) d += `L ${f2(x)} ${f2(y)} `;
+  return d + `L ${ARM} ${f2(ys(topR))}`;
+}
+
+function el(n, at, parent) {
+  const e = document.createElementNS(NS, n);
+  for (const k in at) e.setAttribute(k, at[k]);
+  if (parent) parent.appendChild(e);
+  return e;
+}
+
+// ---------- линейка ----------
+(function buildRuler() {
+  const g = $('ruler');
+  el('rect', {x: 29, y: 6, width: 4, height: 50, rx: 0.3, fill: '#fbf3dc', stroke: '#b09b62', 'stroke-width': 0.28}, g);
+  for (let cm = 0; cm <= 50; cm++) {
+    const major = cm % 5 === 0;
+    el('line', {x1: 29, x2: 29 + (major ? 1.8 : 1.0), y1: ys(cm), y2: ys(cm),
+                stroke: '#6b5b2a', 'stroke-width': major ? 0.2 : 0.12}, g);
+    if (cm % 10 === 0) el('text', {x: 31.1, y: ys(cm) + 0.45, 'font-size': 1.3, fill: '#6b5b2a', 'text-anchor': 'middle'}, g).textContent = cm;
+  }
+  el('text', {x: 31, y: 4.7, 'font-size': 1.45, fill: '#6b5b2a', 'text-anchor': 'middle'}, g).textContent = 'см';
+})();
+
+// ---------- состояние ----------
+const st = {
+  water: null,        // уровень воды (см), null — воды нет
+  oilH: 0,            // высота столба масла (см)
+  k: 920 / 1000,      // rho_м / rho_в
+  labelScale: 0,      // анимация «счётчика» измерений
+  showGuides: false, showArrows: false,
+  streamArm: null, streamColor: '#fff', streamX: 0
+};
+
+function levels() {
+  if (st.oilH > 0.02) {
+    const hv = st.k * st.oilH, yi = (60 - hv) / 2;
+    return {yl: yi + hv, yi, yo: yi + st.oilH, oil: true};
+  }
+  if (st.water == null) return null;
+  return {yl: st.water, yi: st.water, yo: st.water, oil: false};
+}
+
+function setL(node, x1, y1, x2, y2) {
+  node.setAttribute('x1', f2(x1)); node.setAttribute('y1', f2(y1));
+  node.setAttribute('x2', f2(x2)); node.setAttribute('y2', f2(y2));
+}
+function vis(node, v) { node.setAttribute('visibility', v ? 'visible' : 'hidden'); }
+
+function render() {
+  const L = levels();
+  const wp = $('waterPath'), op = $('oilPath');
+  if (!L) { vis(wp, false); vis(op, false); vis($('surfL'), false); vis($('surfR'), false); vis($('surfOil'), false); vis($('ifaceLine'), false); }
+  else {
+    vis(wp, true);
+    wp.setAttribute('d', tubeD(L.yl, L.oil ? L.yi : L.yl));
+    vis(op, L.oil);
+    if (L.oil) op.setAttribute('d', `M ${ARM} ${f2(ys(L.yi))} L ${ARM} ${f2(ys(L.yo))}`);
+    setL($('surfL'), -13.5, ys(L.yl), -10.5, ys(L.yl)); vis($('surfL'), true);
+    vis($('surfR'), !L.oil); if (!L.oil) setL($('surfR'), 10.5, ys(L.yl), 13.5, ys(L.yl));
+    vis($('surfOil'), L.oil); if (L.oil) setL($('surfOil'), 10.5, ys(L.yo), 13.5, ys(L.yo));
+    vis($('ifaceLine'), L.oil); if (L.oil) setL($('ifaceLine'), 10.4, ys(L.yi), 13.6, ys(L.yi));
+
+    if (st.showGuides) {
+      setL($('dWater'), -14.3, ys(L.yl), 28.9, ys(L.yl));
+      setL($('dIface'), -14.3, ys(L.yi), 28.9, ys(L.yi));
+      setL($('dOil'), 14.3, ys(L.yo), 28.9, ys(L.yo));
+      setL($('brM'), 16.3, ys(L.yi), 16.3, ys(L.yo));
+      $('tM').setAttribute('y', f2((ys(L.yi) + ys(L.yo)) / 2 + 0.6));
+      $('tMv').textContent = fmt1(st.oilH * st.labelScale);
+      setL($('brV'), -15.7, ys(L.yi), -15.7, ys(L.yl));
+      $('tV').setAttribute('y', f2((ys(L.yi) + ys(L.yl)) / 2 + 0.6));
+      $('tVv').textContent = fmt1(st.k * st.oilH * st.labelScale);
+    }
+    if (st.showArrows) {
+      const ay = ys(L.yi);
+      setL($('aL'), -19.4, ay, -15.5, ay);
+      $('aLt').setAttribute('x', -17.4); $('aLt').setAttribute('y', f2(ay - 1.0));
+      setL($('aR'), 19.4, ay, 15.5, ay);
+      $('aRt').setAttribute('x', 17.4); $('aRt').setAttribute('y', f2(ay - 1.0));
+    }
+    if (st.streamArm) {
+      const surf = st.streamArm === 'L' ? L.yl : (L.oil ? L.yo : L.yl);
+      const s = $('stream');
+      s.setAttribute('x', f2(st.streamX - 0.22));
+      s.setAttribute('y', 4.1);
+      s.setAttribute('height', Math.max(0.2, ys(surf) - 4.1));
+      s.setAttribute('fill', st.streamColor);
+    }
+  }
+}
+
+// ---------- анимация ----------
+const easeIO = u => u < .5 ? 2 * u * u : 1 - Math.pow(-2 * u + 2, 2) / 2;
+let fastAnim = false;
+function tween(dur, fn, ease = easeIO) {
+  return new Promise(res => {
+    if (fastAnim) { fn(1, 1); res(); return; }
+    const t0 = performance.now();
+    (function fr(t) {
+      if (fastAnim) { fn(1, 1); res(); return; }
+      const u = Math.min(1, (t - t0) / dur);
+      fn(ease(u), u);
+      if (u < 1) requestAnimationFrame(fr); else res();
+    })(t0);
+  });
+}
+const wait = ms => new Promise(r => fastAnim ? r() : setTimeout(r, ms));
+function fade(node, to, dur = 450) {
+  const from = parseFloat(node.getAttribute('opacity') || '0');
+  return tween(dur, e => node.setAttribute('opacity', from + (to - from) * e));
+}
+function setBeaker(armX, color) {
+  $('beaker').setAttribute('transform', `translate(${armX - 4},3.5) rotate(38,4.6,0)`);
+  $('beakerLiq').setAttribute('fill', color);
+  $('beaker').setAttribute('opacity', 1);
+}
+function hideBeaker() { $('beaker').setAttribute('opacity', 0); }
+function streamOn(arm, color) {
+  st.streamArm = arm; st.streamColor = color;
+  st.streamX = arm === 'L' ? -11.4 : 12.6;
+  $('stream').setAttribute('opacity', 0.9);
+}
+function streamOff() { st.streamArm = null; $('stream').setAttribute('opacity', 0); }
+
+const WATER = '#2e86d9', OIL = '#f4c430';
+
+async function pourWater() {
+  st.pouring = true;
+  setBeaker(-12, WATER); streamOn('L', WATER);
+  st.water = 10.5;
+  wpFade();
+  function wpFade() { $('waterPath').setAttribute('opacity', 0); }
+  await Promise.all([
+    tween(400, e => $('waterPath').setAttribute('opacity', e)),
+    tween(5400, e => { st.water = 10.5 + (30 - 10.5) * e; render(); }, u => u)
+  ]);
+  streamOff(); hideBeaker(); st.pouring = false; render();
+}
+
+async function pourOil(from, to, dur) {
+  st.pouring = true;
+  setBeaker(12, OIL); streamOn('R', OIL);
+  await wait(420);
+  await tween(dur, e => { st.oilH = from + (to - from) * e; render(); }, u => u);
+  streamOff(); hideBeaker(); st.pouring = false; render();
+}
+
+// ---------- панели ----------
+const badge = t => { $('stepBadge').textContent = t; };
+
+const lawHTML = `<div class="law"><span class="frac"><span>h<sub>в</sub></span><span>h<sub>м</sub></span></span> = <span class="frac"><span>ρ<sub>м</sub></span><span>ρ<sub>в</sub></span></span> = <span class="frac"><span>920</span><span>1000</span></span> = 0,92</div>`;
+
+const introHTML = `
+  <p style="font-size:15px;line-height:1.55"><b>Цель:</b> выяснить, как <b>плотность жидкости</b> влияет на её уровень в сообщающихся сосудах, и <b>проверить на опыте</b> зависимость: высоты столбов таких жидкостей <b>обратно пропорциональны их плотностям</b> — чем плотнее жидкость, тем ниже её уровень. Это следствие равенства давлений, а не отдельный закон природы.</p>
+  <h3 style="margin:14px 0 2px;font-size:16px">Чему ты научишься</h3>
+  <ul class="goals">
+    <li>объяснять, почему в сообщающихся сосудах с одной жидкостью уровни одинаковы;</li>
+    <li>сравнивать давления столбов разных жидкостей по формуле <span class="f">p = ρgh</span>;</li>
+    <li>проверять соотношение <span class="f">h<sub>в</sub>/h<sub>м</sub> = ρ<sub>м</sub>/ρ<sub>в</sub></span> по результатам измерений.</li>
+  </ul>
+  <h3 style="margin:14px 0 2px;font-size:16px">Оборудование и материалы</h3>
+  <ul class="equip">
+    <li>🧰 Прозрачный гибкий шланг длиной 50–70&nbsp;см, согнутый в форме буквы U и закреплённый скотчем на вертикальной картонке;</li>
+    <li>💧 <span class="dot" style="background:${WATER}"></span>вода, подкрашенная синей краской;</li>
+    <li>🛢️ <span class="dot" style="background:${OIL}"></span>растительное масло (жёлтое) — его плотность меньше, чем у воды;</li>
+    <li>📏 линейка.</li>
+  </ul>
+  <div class="formula">Давление столба жидкости:&nbsp; <span class="f">p</span> = <span class="f">ρ·g·h</span></div>
+  <div class="predict"><b>Проверь себя до опыта.</b> Что случится, если влить масло в правое колено?<br>
+    1) уровни воды и масла станут равными; 2) масло утонет и соберётся внизу; 3) граница «вода–масло» опустится, а вода в левом колене поднимется.
+    <details><summary>Показать ответ</summary><p>Верно — 3. Масло легче воды и не смешивается с ней, поэтому остаётся сверху и давит на воду. Вода уходит в левое колено, пока давления на границе раздела не сравняются.</p></details>
+  </div>
+  <button id="nextBtn" class="btn">Начать опыт →</button>
+  <p class="hint">Опыт анимирован. После каждого шага читай объяснение и нажимай «Продолжить». Кнопка «⚡ Быстро» позволяет сразу перейти к концу анимации.</p>`;
+
+const stepsHTML = {
+  1: `
+  <div class="obs">👀 <b>Наблюдение.</b> Вода заполнила нижнюю часть шланга и поднялась в <b>обоих коленах на одну и ту же высоту — 30&nbsp;см от нижней точки изгиба</b> (зелёный пунктир). Форма шланга и изгиб не играют роли.</div>
+  <div class="why">💡 <b>Объяснение.</b> Трубка — <b>сообщающийся сосуд</b>: обе колонны соединены снизу и заполнены одной и той же (однородной) жидкостью. На одном и том же уровне давление воды слева и справа одинаково, поэтому столбы воды уравновешиваются — уровни выравниваются.</div>
+  <div class="next">➡️ <b>Что дальше:</b> вольём в правое колено растительное масло (<span class="f">ρ</span><sub>м</sub> ≈ 920&nbsp;кг/м³ — легче воды, 1000&nbsp;кг/м³). Лёгкое масло останется сверху и начнёт давить на воду. Смотрим, что станет с уровнями!</div>
+  <button id="nextBtn" class="btn">Продолжить →</button>`,
+  2: `
+  <div class="obs">👀 <b>Наблюдение.</b> Масло не смешалось с водой и <b>не утонуло</b> — собралось жёлтым слоем поверх воды в правом колене. Уже видно: граница «вода–масло» в правом колене опустилась (30 → 27,7&nbsp;см), а уровень воды в левом колене <b>поднялся</b> (30 → 32,3&nbsp;см). Масло давит на воду и вытесняет её в левое колено!</div>
+  <div class="why">💡 <b>Объяснение.</b> Плотность масла меньше плотности воды (920&nbsp;&lt;&nbsp;1000&nbsp;кг/м³), поэтому оно <b>плавает сверху</b>. Столб масла имеет вес и давит на воду под собой — прежнее равновесие нарушено, и вода отступает влево, пока давления снова не сравняются.</div>
+  <div class="next">➡️ <b>Что дальше:</b> дольём ещё масла — сдвиг станет намного нагляднее. Дождёмся, когда жидкости успокоятся.</div>
+  <button id="nextBtn" class="btn">Продолжить →</button>`,
+  3: `
+  <div class="obs">👀 <b>Наблюдение.</b> Масла стало больше — и сдвиг вырос: граница раздела опустилась до <b>23,1&nbsp;см</b>, уровень воды в левом колене поднялся до <b>36,9&nbsp;см</b>. Движение прекратилось: стрелки показывают, что на уровне границы раздела давление воды (слева) и давление масла (справа) <b>сравнялись</b>.</div>
+  <div class="why">💡 <b>Объяснение.</b> Жидкость покоится, когда давления на границе раздела равны:
+    <div class="formula"><span class="f">p</span><sub>в</sub> = <span class="f">p</span><sub>м</sub>,&nbsp; то есть&nbsp; <span class="f">ρ</span><sub>в</sub>·<span class="f">g</span>·<span class="f">h</span><sub>в</sub> = <span class="f">ρ</span><sub>м</sub>·<span class="f">g</span>·<span class="f">h</span><sub>м</sub></div>
+    Вода плотнее — ей хватает более <b>низкого</b> столба. Масло легче — его столб должен быть <b>выше</b>, чтобы создать то же давление. Обрати внимание: <span class="f">g</span> сокращается!</div>
+  <details class="teacher"><summary>Для учителя: откуда берётся 60 см и почему так считают</summary><p>До опыта вода стояла в обоих коленах на высоте 30&nbsp;см над нижней точкой изгиба. Сечения колен одинаковы, уровни остаются выше изгиба, поэтому объём воды не меняется: z<sub>л</sub> + z<sub>гр</sub> = 30 + 30 = 60&nbsp;см, где z<sub>л</sub> — уровень воды слева, z<sub>гр</sub> — граница раздела справа. Равенство давлений даёт ρ<sub>в</sub>g(z<sub>л</sub> − z<sub>гр</sub>) = ρ<sub>м</sub>gh<sub>м</sub>, то есть z<sub>л</sub> − z<sub>гр</sub> = 0,92&nbsp;h<sub>м</sub>. Атмосферное давление действует на обе открытые поверхности и сокращается; капиллярными эффектами пренебрегаем.</p></details>
+  <div class="next">➡️ <b>Что дальше:</b> возьмём линейку и измерим высоты столбов <span class="f">h</span><sub>м</sub> и <span class="f">h</span><sub>в</sub>, чтобы проверить зависимость численно.</div>
+  <button id="nextBtn" class="btn">Продолжить →</button>`,
+  4: `
+  <div class="obs">📏 <b>Измеряем линейкой.</b>
+    <ul style="margin:8px 0 0;padding-left:18px">
+      <li><b style="color:#7a5a10">h<sub>м</sub> = 15,0 см</b> — столб масла: от границы «вода–масло» до верхнего уровня масла (правое колено);</li>
+      <li><b style="color:#1c5a94">h<sub>в</sub> = 13,8 см</b> — столб воды: от <i>той же</i> границы раздела до уровня воды (левое колено).</li>
+    </ul></div>
+  <div class="why">💡 <b>Проверка закона.</b> Давления на границе раздела:
+    <div class="formula" style="font-size:15.5px">
+      ρ<sub>в</sub>·h<sub>в</sub> = 1000 · 13,8 = <b>13&nbsp;800</b><br>
+      ρ<sub>м</sub>·h<sub>м</sub> = 920 · 15,0 = <b>13&nbsp;800</b> ✅ равны!
+    </div>
+    Высоты в одинаковых единицах (см), поэтому g и перевод единиц сокращаются. Отсюда закон:
+    ${lawHTML}
+    И действительно: 13,8&nbsp;/&nbsp;15,0&nbsp;=&nbsp;0,92. Высоты столбов <b>обратно пропорциональны плотностям</b>.</div>
+  <div class="obs">👀 Заметь: верх масла (38,1&nbsp;см) оказался <b>выше</b> уровня воды (36,9&nbsp;см) — более высокий столб лёгкого масла уравновешивает более низкий столб плотной воды.</div>
+  <button id="nextBtn" class="btn">Завершить опыт →</button>`
+};
+
+const finalHTML = `
+  <div class="done">🎉 <b>Опыт завершён!</b></div>
+  <div class="why">💡 <b>Вывод.</b> В сообщающихся сосудах высоты столбов разнородных жидкостей <b>обратно пропорциональны их плотностям</b>: чем плотнее жидкость, тем ниже её уровень.
+    ${lawHTML}</div>
+  <details class="teacher"><summary>Для учителя: допущения модели</summary><p>Колена одинакового сечения, уровни выше изгиба шланга, обе поверхности открыты и находятся под одинаковым атмосферным давлением, капиллярные эффекты и смачивание стенок не учитываются. Соотношение h<sub>в</sub>/h<sub>м</sub> = ρ<sub>м</sub>/ρ<sub>в</sub> — не самостоятельный закон, а следствие формулы p = ρgh и равенства давлений на границе раздела.</p></details>
+  <div class="obs">🏫 <b>Повторите в классе.</b> Соберите настоящий шланг на картонке, налейте подкрашенную воду до 30&nbsp;см, затем добавьте масло и измерьте h<sub>м</sub> и h<sub>в</sub> линейкой. Сравните отношение с 0,92. После опыта протрите шланг и не проливайте масло на стол.</div>
+  <h3 style="font-size:16px;margin:14px 0 4px">Вопросы школьникам</h3>
+  <ol class="ques">
+    <li>Почему масло собралось сверху в правом колене и не растеклось по всей трубке?
+      <details><summary>Ответ (для учителя)</summary><p>Плотность масла (≈920 кг/м³) меньше плотности воды (1000 кг/м³), и они не смешиваются. Лёгкая жидкость плавает на тяжёлой, поэтому масло остаётся слоем поверх воды там, куда его налили.</p></details></li>
+    <li>Уровень масла выше уровня воды. Противоречит ли это правилу «в сообщающихся сосудах уровни равны»?
+      <details><summary>Ответ (для учителя)</summary><p>Нет. Уровни равны только для одной (однородной) жидкости. Для разнородных жидкостей выравниваются не уровни, а давления на уровне границы раздела: ρ<sub>в</sub>·g·h<sub>в</sub> = ρ<sub>м</sub>·g·h<sub>м</sub>. Поэтому столб лёгкого масла выше столба воды.</p></details></li>
+    <li>Что произойдёт с границей раздела и уровнями, если долить масла в правое колено? А если подлить воды в левое? Изменится ли отношение h<sub>в</sub>/h<sub>м</sub>?
+      <details><summary>Ответ (для учителя)</summary><p>При доливе масла граница раздела опустится ещё ниже, вода в левом колене поднимется. При доливе воды граница и уровень масла поднимутся. Отношение h<sub>в</sub>/h<sub>м</sub> = ρ<sub>м</sub>/ρ<sub>в</sub> = 0,92 не изменится — оно зависит только от плотностей.</p></details></li>
+    <li>Как изменилась бы разница уровней, если бы плотность масла была меньше, например 800 кг/м³?
+      <details><summary>Ответ (для учителя)</summary><p>Тогда h<sub>в</sub>/h<sub>м</sub> = 800/1000 = 0,8: при том же столбе масла вода уравновешивалась бы ещё более коротким столбом, и разница уровней h<sub>м</sub> − h<sub>в</sub> стала бы больше. Проверьте это в бонусном режиме!</p></details></li>
+    <li>Представь, что плотность «масла» стала равна плотности воды. Как расположатся уровни? А если масло будет плотнее воды?
+      <details><summary>Ответ (для учителя)</summary><p>При равных плотностях h<sub>в</sub> = h<sub>м</sub> — уровни сравнялись бы, жидкости вели бы себя как одна. Если же «масло» плотнее воды, оно утонет: опустится под воду и займет низ трубки, а вода окажется сверху.</p></details></li>
+  </ol>
+  <div class="btnrow">
+    <button id="bonusBtn" class="btn alt">🧪 Бонус: поэкспериментируй</button>
+    <button id="restartBtn" class="btn ghost">↻ Повторить опыт</button>
+  </div>`;
+
+const bonusHTML = `
+  <h3 style="font-size:16px;margin:0 0 6px">Бонус-режим 🧪</h3>
+  <p style="font-size:14.5px;line-height:1.5;margin:6px 0">Меняй плотность масла и высоту его столба — трубка сама придёт в новое равновесие. Следи, как отношение h<sub>в</sub>/h<sub>м</sub> всегда становится равным ρ<sub>м</sub>/ρ<sub>в</sub>.</p>
+  <label>Плотность масла ρ<sub>м</sub>: <b id="rhoVal">920</b> кг/м³</label>
+  <input type="range" id="rhoSl" min="700" max="1000" step="5" value="920">
+  <label>Столб масла h<sub>м</sub>: <b id="oilVal">15,0</b> см</label>
+  <input type="range" id="oilSl" min="4" max="20" step="0.5" value="15">
+  <div class="readout" id="bonusOut"></div>
+  <div class="note" id="bonusNote"></div>
+  <button id="backBtn" class="btn ghost">← Вернуться к результатам</button>`;
+
+// ---------- сценарий ----------
+async function animStep1() {
+  await pourWater();
+  await fade($('equalG'), 1, 600);
+}
+async function animStep2() {
+  await fade($('equalG'), 0, 400);
+  st.showEqual = false;
+  await wait(250);
+  await pourOil(0, 5, 5200);
+}
+async function animStep3() {
+  await pourOil(5, 15, 7000);
+  st.showArrows = true;
+  render();
+  await fade($('arrows'), 1, 700);
+}
+async function animStep4() {
+  st.showArrows = false;
+  fade($('arrows'), 0, 300);
+  await tween(900, e => {
+    $('ruler').setAttribute('opacity', e);
+    $('ruler').setAttribute('transform', `translate(0,${f2(-26 + 26 * e)})`);
+  });
+  st.showGuides = true;
+  st.labelScale = 0;
+  render();
+  await fade($('guides'), 1, 800);
+  await tween(1200, e => { st.labelScale = e; render(); });
+}
+
+const stepDefs = {
+  1: {anim: animStep1, html: stepsHTML[1], badge: 'Шаг 1 из 5 · Наливаем воду'},
+  2: {anim: animStep2, html: stepsHTML[2], badge: 'Шаг 2 из 5 · Вливаем масло'},
+  3: {anim: animStep3, html: stepsHTML[3], badge: 'Шаг 3 из 5 · Наблюдаем сдвиг'},
+  4: {anim: animStep4, html: stepsHTML[4], badge: 'Шаг 4 из 5 · Измеряем'}
+};
+
+let bonusActive = false, tK = 0.92, tOil = 15;
+
+function wireNext() {
+  const b = $('nextBtn');
+  if (b) b.onclick = () => { b.disabled = true; showStep(cur + 1); };
+}
+
+async function showStep(i) {
+  cur = i;
+  if (i > 4) { showFinal(); return; }
+  const d = stepDefs[i];
+  badge(d.badge);
+  $('panelBody').innerHTML = '<div class="wait">⏳ Наблюдайте за опытом…</div>';
+  await d.anim();
+  $('panelBody').innerHTML = d.html;
+  wireNext();
+}
+
+function showFinal() {
+  cur = 5;
+  badge('Итог · Опыт завершён');
+  $('panelBody').innerHTML = finalHTML;
+  $('restartBtn').onclick = () => location.reload();
+  $('bonusBtn').onclick = showBonus;
+}
+
+function bonusReadout() {
+  const hv = st.k * st.oilH, rho = st.k * 1000;
+  const pV = 1000 * hv, pM = rho * st.oilH;
+  $('bonusOut').innerHTML =
+    `h<sub>в</sub> = <b>${fmt1(hv)} см</b> &nbsp;·&nbsp; h<sub>в</sub>/h<sub>м</sub> = <b>${fmt2(hv / st.oilH)}</b> &nbsp;·&nbsp; ρ<sub>м</sub>/ρ<sub>в</sub> = <b>${fmt2(st.k)}</b> ${Math.abs(pV - pM) < 1 ? '✅' : '⏳'}<br>` +
+    `1000 · ${fmt1(hv)} = <b>${fmt0(pV)}</b> &nbsp;и&nbsp; ${Math.round(rho)} · ${fmt1(st.oilH)} = <b>${fmt0(pM)}</b> — давления на границе равны`;
+  $('bonusNote').innerHTML =
+    rho >= 995 ? 'Уровни сравнялись: «масло» стало неотличимо от воды — одинаковая плотность!' :
+    rho <= 710 ? '«Масло» очень лёгкое — его столб намного выше водяного, а отношение h<sub>в</sub>/h<sub>м</sub> = ' + fmt2(st.k) + '.' :
+    'Закон работает при любой плотности: h<sub>в</sub>/h<sub>м</sub> = ρ<sub>м</sub>/ρ<sub>в</sub> = ' + fmt2(st.k) + '.';
+}
+
+function bonusLoop() {
+  if (!bonusActive) return;
+  st.k += (tK - st.k) * 0.16;
+  st.oilH += (tOil - st.oilH) * 0.16;
+  st.labelScale = 1;
+  render();
+  bonusReadout();
+  requestAnimationFrame(bonusLoop);
+}
+
+function showBonus() {
+  bonusActive = true;
+  badge('Бонус-режим');
+  $('panelBody').innerHTML = bonusHTML;
+  st.showArrows = false;
+  $('arrows').setAttribute('opacity', 0);
+  $('rhoSl').oninput = e => { tK = e.target.value / 1000; $('rhoVal').textContent = e.target.value; };
+  $('oilSl').oninput = e => { tOil = parseFloat(e.target.value); $('oilVal').textContent = fmt1(tOil); };
+  bonusLoop();
+  $('backBtn').onclick = closeBonus;
+}
+
+async function closeBonus() {
+  bonusActive = false;
+  badge('Итог · Опыт завершён');
+  $('panelBody').innerHTML = '<div class="wait">Возвращаем исходные условия…</div>';
+  const k0 = st.k, o0 = st.oilH;
+  await tween(900, e => { st.k = k0 + (0.92 - k0) * e; st.oilH = o0 + (15 - o0) * e; st.labelScale = 1; render(); });
+  showFinal();
+}
+
+// ---------- запуск ----------
+$('fastBtn').onclick = () => {
+  fastAnim = !fastAnim;
+  $('fastBtn').setAttribute('aria-pressed', String(fastAnim));
+  $('fastBtn').textContent = fastAnim ? '⚡ Быстро: вкл' : '⚡ Быстро';
+};
+$('glassDark').setAttribute('d', tubeD(TOP, TOP));
+$('glassLight').setAttribute('d', tubeD(TOP, TOP));
+render();
+let cur = 0;
+badge('Введение');
+$('panelBody').innerHTML = introHTML;
+wireNext();
+</script>
+</body>
+</html>
